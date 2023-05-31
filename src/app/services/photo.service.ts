@@ -10,6 +10,8 @@ import { Preferences } from '@capacitor/preferences';
 export class PhotoService {
 
   public photos: UserPhoto[] = [];
+  // Key for the store
+  private PHOTO_STORAGE: string = 'photos';
 
   constructor() { }
 
@@ -25,11 +27,35 @@ export class PhotoService {
     const savedImageFile = await this.savePicture(capturedPhoto);
     this.photos.unshift(savedImageFile);
 
+    // Photos array is stored each time a new photo is taken, doesn't matter if user closes or switches app, photo data is saved
+    Preferences.set({
+      key: this.PHOTO_STORAGE,
+      value: JSON.stringify(this.photos),
+    });
+
     // Add new photo to Photos array
     // this.photos.unshift({
     //   filepath: "soon...",
     //   webviewPath: capturedPhoto.webPath
     // });
+  }
+
+  public async loadSaved() {
+    // Retrieve cached photo array data
+    const { value } = await Preferences.get({ key: this.PHOTO_STORAGE });
+    this.photos = (value ? JSON.parse(value) : []) as UserPhoto[];
+
+    // Display the photo by reading into base64 format
+    for (let photo of this.photos) {
+      // Read each saved photo's data from the Filesystem
+      const readFile = await Filesystem.readFile({
+        path: photo.filepath,
+        directory: Directory.Data,
+      });
+
+      // Web platform only: Load the photo as base64 data
+      photo.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
+    }
   }
 
   private async savePicture(photo: Photo) {
