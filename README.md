@@ -9,3 +9,5 @@ Highlights include:
   <li>Deployed as a native iOS and Android mobile app using Capacitor, Ionic's official native app runtime.</li>
   <li>Photo Gallery functionality powered by the Capacitor Camera, Filesystem, and Preferences APIs.</li>
 </ul>
+
+~ionic serve
