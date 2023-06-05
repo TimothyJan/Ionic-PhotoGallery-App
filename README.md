@@ -2,6 +2,7 @@
 Photo Gallery app that offers the ability to take photos with your device's camera, display them in a grid, and store them permanently on the device.
 
 <a href="https://ionicframework.com/docs/angular/your-first-app">Tutorial</a>
+<a href="https://github.com/ionic-team/tutorial-photo-gallery-angular">Source Code</a>
 
 Highlights include:
 <ul>
@@ -26,4 +27,13 @@ Adding Mobile
   <li>Import the Ionic <a href="https://ionicframework.com/docs/angular/platform">Platform API</a> into photo.service.ts, which is used to retrieve information about the current device.</li>
   <li>If it’s “hybrid” (Capacitor or Cordova, two native runtimes), then read the photo file into base64 format using the Filesystem readFile() method. Otherwise, Fetch the photo, read as a blob, then convert to base64 format.</li>
   <li></li>
+</ul>
+
+Deploying to iOS and Android (<a href="https://ionicframework.com/docs/angular/your-first-app/deploying-mobile">link</a>)
+<ul>
+  <li>~ionic build</li>
+  <li>~ionic cap add ios</li>
+  <li>~ionic cap add android</li>
+  <li>Every time you perform a build, you'll need to copy those changes into your native projects: ~ionic cap copy</li>
+  <li>After making updates to the native portion of the code (such as adding a new plugin), use the sync command: ~ionic cap sync</li>
 </ul>
